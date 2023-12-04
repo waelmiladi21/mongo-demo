@@ -1,0 +1,4 @@
+to test locally using docker-compose
+add line 2 to dockefile :  EXPOSE 8080
+$docker build -t myapp .
+launch the docker-compose file
