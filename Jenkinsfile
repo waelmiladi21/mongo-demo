@@ -46,9 +46,7 @@ pipeline{
         }
         stage ('Build jar file'){
             steps{
-                sh 'mvn clean install -DskipTests=true'
-                // sh 'mvn clean package'
-                // /target/mongo-demo-
+                sh 'mvn clean package -DskipTests=true'   
             }
         }
         stage("OWASP Dependency Check"){
