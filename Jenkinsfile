@@ -72,5 +72,10 @@ pipeline{
                 sh "trivy image drugman21/student:latest > trivy.txt"
             }
         }
+        stage ('Deploy to container'){
+            steps{
+                sh 'docker run -d --name student -p 8080:8080 drugman21/student:latest'
+            }
+        }
    }
 }
