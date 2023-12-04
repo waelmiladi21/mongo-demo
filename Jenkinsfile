@@ -59,8 +59,8 @@ pipeline{
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        sh "docker build -t student ."
-                        sh "docker tag student drugman21/student:latest"
+                        sh 'docker build -t waelmiladi21/mongo-demo .'
+                        //sh "docker tag student drugman21/student:latest"
                         sh "docker push drugman21/student:latest"
                    }
                 }
