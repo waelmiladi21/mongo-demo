@@ -72,5 +72,17 @@ pipeline{
                 sh "trivy image drugman21/student:latest > trivy.txt"
             }
         }
+        
    }
+   post {
+     always {
+        emailext attachLog: true,
+            subject: "'${currentBuild.result}'",
+            body: "Project: ${env.JOB_NAME}<br/>" +
+                "Build Number: ${env.BUILD_NUMBER}<br/>" +
+                "URL: ${env.BUILD_URL}<br/>",
+            to: 'miladi.wael21@gmail.com',
+            attachmentsPattern: 'trivy.txt'
+        }
+    }
 }
