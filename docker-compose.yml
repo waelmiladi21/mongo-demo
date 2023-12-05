@@ -20,7 +20,7 @@ services:
     ports:
       - "9090:9090"
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/${MONGO_INITDB_DATABASE}?authSource=admin
+      SPRING_DATA_MONGODB_URI: mongodb://admin:admin@localhost:27017/gte3?authSource=admin
     depends_on:
       - mongodb
     networks:
