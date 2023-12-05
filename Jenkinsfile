@@ -74,7 +74,7 @@ pipeline{
         }
         stage('Deploy') {
             steps {
-                //sh 'minikube start'
+                sh 'minikube start'
                 sh 'eval $(minikube docker-env)'
                 sh 'kubectl apply -f k8s/studentdb-config.yml'
                 sh 'kubectl apply -f k8s/studentdb-deployment.yml'
