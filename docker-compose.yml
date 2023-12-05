@@ -1,19 +1,33 @@
 version: '3'
 services:
-  spring-app:
-    image: myapp
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mongo
-    environment:
-      - SPRING_DATA_MONGODB_HOST=mongo
-      - SPRING_DATA_MONGODB_PORT=27017
-      - SPRING_DATA_MONGODB_DATABASE=mydatabase
-
-  mongo:
-    image: mongo
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin 
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: gte3
+    networks:
+      - student-network
     volumes:
-      - ./data:/data/db
+      - mongodb-data:/data/db
+
+  java-app:
+    image: drugman21/student:latest
+    container_name: student-java-app
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/${MONGO_INITDB_DATABASE}?authSource=admin
+    depends_on:
+      - mongodb
+    networks:
+      - student-network
+
+networks:
+  student-network:
+
+volumes:
+  mongodb-data:
