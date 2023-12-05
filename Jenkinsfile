@@ -72,11 +72,23 @@ pipeline{
                 sh "trivy image drugman21/student:latest > trivy.txt"
             }
         }
-        stage ('Deploy to container'){
-            steps{
-                sh 'docker run -d --name deploytest -p 9090:9090 drugman21/student:latest'
+        stage('Deploy') {
+            steps {
+                sh 'minikube start'
+                sh 'eval $(minikube docker-env)'
+                sh 'kubectl apply -f k8s/studentdb-config.yml'
+                sh 'kubectl apply -f k8s/studentdb-deployment.yml'
+                sh 'kubectl apply -f k8s/student-app-deployment.yml'
+
             }
         }
+        
+        //stage ('Deploy to container'){
+            //steps{
+                //sh 'docker run -d --name deploytest -p 9090:9090 drugman21/student:latest'
+            //}
+        //}
+        
         
    }
    post {

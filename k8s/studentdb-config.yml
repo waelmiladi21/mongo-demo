@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: student-db-config
+data:
+ host: studentdb-service
+ database: gte3

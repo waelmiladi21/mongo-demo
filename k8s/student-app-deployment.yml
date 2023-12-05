@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: student-service
+spec:
+  selector:
+    app: student-service
+  ports:
+  - protocol: TCP
+    port: 9090
+    nodePort: 30081
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-service
+spec:
+  selector:
+      matchLabels:
+        app: student-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: student-service
+    spec:
+      containers:
+        - name: student-service
+          image: drugman21/student:latest
+          ports:
+          - containerPort: 9090
+          env:
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: student-db-config
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: student-db-config
+                  key: host
