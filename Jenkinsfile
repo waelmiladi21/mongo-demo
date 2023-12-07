@@ -72,7 +72,7 @@ pipeline{
                 sh "trivy image drugman21/student:latest > trivy.txt"
             }
         }
-        stage('Deploy') {
+        /* stage('Deploy') {
             steps {
                 sh 'minikube start'
                 sh 'eval $(minikube docker-env)'
@@ -81,7 +81,7 @@ pipeline{
                 sh 'kubectl apply -f k8s/student-app-deployment.yml'
 
             }
-        }
+        } */
         
         //stage ('Deploy to container'){
             //steps{
