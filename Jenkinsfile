@@ -28,6 +28,11 @@ pipeline{
                 sh 'mvn test'
             }
         }
+        stage ('start sonar container') {
+            steps {
+                sh 'docker start sonar'
+            }
+        }
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
@@ -49,12 +54,12 @@ pipeline{
                 sh 'mvn clean package -DskipTests=true'   
             }
         }
-        //stage("OWASP Dependency Check"){
-            //steps{
-                //dependencyCheck additionalArguments: '--scan ./ --format XML ', odcInstallation: 'DP-Check'
-                //dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            //}
-        //}
+        stage("OWASP Dependency Check"){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ --format XML ', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
         stage ('Build and push to docker hub'){
             steps{
                 script{
@@ -70,6 +75,11 @@ pipeline{
         stage("TRIVY"){
             steps{
                 sh "trivy image drugman21/student:latest > trivy.txt"
+            }
+        }
+        stage("Deploy with compose"){
+            steps{
+                sh "docker-compose up -d"
             }
         }
         /* stage('Deploy') {
