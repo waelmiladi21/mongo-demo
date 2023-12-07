@@ -1,33 +1,25 @@
-version: '3'
-services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin 
-      MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_INITDB_DATABASE: gte3
-    networks:
-      - student-network
-    volumes:
-      - mongodb-data:/data/db
+version: "3.8"
 
-  java-app:
+services:
+  sb-app:
     image: drugman21/student:latest
-    container_name: student-java-app
+    build: .
+    container_name: "java-app"
     ports:
-      - "9090:9090"
-    environment:
-      SPRING_DATA_MONGODB_URI: mongodb://admin:admin@localhost:27017/gte3?authSource=admin
+      - 9090:9090
+    networks:
+      - mynetwork
     depends_on:
       - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    ports:
+      - "27070:27017"
     networks:
-      - student-network
+      - mynetwork
 
 networks:
-  student-network:
-
-volumes:
-  mongodb-data:
+  mynetwork:
+    driver: bridge
