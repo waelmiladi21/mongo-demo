@@ -77,11 +77,11 @@ pipeline{
                 sh "trivy image drugman21/student:latest > trivy.txt"
             }
         }
-        stage("Deploy with compose"){
+        /* stage("Deploy with compose"){
             steps{
                 sh "docker-compose up -d"
             }
-        }
+        } */
         /* stage('Deploy') {
             steps {
                 sh 'minikube start'
