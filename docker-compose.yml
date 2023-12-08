@@ -20,6 +20,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
       - "27017:27017"
+    volumes:
+      - /home/Drugman21/mongo_data:/data/db
     networks:
       - mynetwork
 
