@@ -28,11 +28,11 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage ('start sonar container') {
+        /* stage ('start sonar container') {
             steps {
                 sh 'docker start sonar'
             }
-        }
+        } */
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
