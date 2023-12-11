@@ -85,8 +85,9 @@ pipeline{
         stage('Deploy with k8s') {
             steps {
                 sh 'minikube status'
-                sh 'kubectl apply -f k8s/mongo-deployment.yml'
-                sh 'kubectl apply -f k8s/spring-deployment.yml'
+                sh 'kubectl apply -f k8s/'
+                //sh 'kubectl apply -f k8s/mongo-deployment.yml'
+                //sh 'kubectl apply -f k8s/spring-deployment.yml'
 
             }
         }
