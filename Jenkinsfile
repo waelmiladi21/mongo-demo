@@ -85,7 +85,7 @@ pipeline{
         stage('Deploy with k8s') {
             steps {
                 
-                sh 'kubectl apply -f k8s'
+                sh 'kubectl apply -f /k8s'
 
             }
         }
