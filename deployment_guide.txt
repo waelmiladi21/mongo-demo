@@ -1,0 +1,7 @@
+if you are using minikube 
+start minikube inside the vm
+then apply the deployment on the folder /k8s
+kubectl get service
+minikkube service student --> you will get the ip and the port of the service 
+test with curl on the vm 
+or tunnel to your machine (remember to tunnel on your bare metal) : ssh -L 8080:service_ip:service_port master@20.199.86.79

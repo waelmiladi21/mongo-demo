@@ -82,16 +82,13 @@ pipeline{
                 sh "docker-compose up -d"
             }
         } */
-        /* stage('Deploy') {
+        stage('Deploy with k8s') {
             steps {
-                sh 'minikube start'
-                sh 'eval $(minikube docker-env)'
-                sh 'kubectl apply -f k8s/studentdb-config.yml'
-                sh 'kubectl apply -f k8s/studentdb-deployment.yml'
-                sh 'kubectl apply -f k8s/student-app-deployment.yml'
+                
+                sh 'kubectl apply -f k8s'
 
             }
-        } */
+        }
         
         //stage ('Deploy to container'){
             //steps{

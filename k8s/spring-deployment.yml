@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student
+  template:
+    metadata:
+      labels:
+        app: student
+    spec:
+      containers:
+        - name: app
+          image: drugman21/student:latest
+          ports:
+            - containerPort: 9090
+          env:
+            - name: SPRING_DATA_MONGODB_URI
+              value: mongodb://mongo-service:27017/gte3
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student
+spec:
+  selector:
+    app: student
+  ports:
+    - port: 9090
+      targetPort: 9090
+  type: NodePort
