@@ -85,8 +85,8 @@ pipeline{
         stage('Deploy with k8s') {
             steps {
                 script {
-                    withKubeConfig([credentialsId: 'mykubeconfig']) {
-                        sh 'minikube start'
+                    withKubeConfig([credentialsId: 'conf']) {
+                        //sh 'minikube start'
                         sh 'minikube status'
                         sh 'kubectl apply -f k8s/'
                         //sh 'kubectl apply -f k8s/mongo-deployment.yml'
