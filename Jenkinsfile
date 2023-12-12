@@ -87,8 +87,8 @@ pipeline{
                 script {
                     withKubeConfig([credentialsId: 'conf']) {
                         //sh 'minikube start'
-                        sh 'minikube status'
-                        sh 'kubectl apply -f k8s/'
+                        //sh 'minikube status'
+                        sh 'minikube kubectl apply -f k8s/'
                         //sh 'kubectl apply -f k8s/mongo-deployment.yml'
                         //sh 'kubectl apply -f k8s/spring-deployment.yml'   
                     }
